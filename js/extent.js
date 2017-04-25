@@ -374,7 +374,7 @@ $('#category-toggle li a').click(function() {
         $('.test').addClass('displayed').removeClass('hide');
     else
         $('.test').removeClass('displayed').addClass('hide').filter(function() {
-            return ($(this).find('.category').text() === name)
+            return String($(this).find('.category').text()).includes(name)
         }).addClass('displayed').removeClass('hide');
 
     $('.test.displayed').first().click();
