@@ -77,49 +77,49 @@ $('.side-nav a').click(function() {
 
 /* -- [ allow selecting item by pressing up & down keys ] -- */
 $(window).keydown(function(e) {
-	var target = null, sibling = null;
-	
-    if ($('input').is(':focus') || $('.featherlight').length > 0) {
-    } else {
-        (currentView === 0) && (target = $('li.test.displayed.active'), sibling = '.test.displayed');
-        (currentView === 1) && (target = $('li.category.displayed.active'), sibling = '.category.displayed');
-        (currentView === 3) && (target = $('li.author.displayed.active'), sibling = '.author.displayed');
-        (currentView === 2) && (target = $('li.exception.displayed.active'), sibling = '.exception.displayed');
-
-        function goToView(view) {
-            $('#slide-out a').filter(function() {
-                return ($(this).attr('view') === view + '-view');
-            }).click();
-        }
-
-        if (!e.ctrlKey && !e.altKey && !e.shiftKey) {
-            (e.which === 67) && goToView('category');
-            (e.which === 65) && goToView('author');
-            (e.which === 68) && goToView('dashboard');
-            (e.which === 88) && goToView('exception');
-            (e.which === 84) && goToView('test');
-
-            if (target !== null) {
-                (e.which === 40) && target.nextAll(sibling).first().click();
-                (e.which === 38) && target.prevAll(sibling).first().click();
-            }
-
-            function toggleByStatus(status) {
-                $('#tests-toggle li').filter(function() {
-                    return ($(this).attr('status') == status)
-                }).click();
-            }
-
-            if (currentView === 0) {
-                (e.which === 27) && toggleByStatus('clear');
-                (e.which === 69) && toggleByStatus('error');
-                (e.which === 70) && toggleByStatus('fail');
-                (e.which === 80) && toggleByStatus('pass');
-                (e.which === 83) && toggleByStatus('skip');
-                (e.which === 87) && toggleByStatus('warning');
-            }
-        }
-    }
+//	var target = null, sibling = null;
+//
+//    if ($('input').is(':focus') || $('.featherlight').length > 0) {
+//    } else {
+//        (currentView === 0) && (target = $('li.test.displayed.active'), sibling = '.test.displayed');
+//        (currentView === 1) && (target = $('li.category.displayed.active'), sibling = '.category.displayed');
+//        (currentView === 3) && (target = $('li.author.displayed.active'), sibling = '.author.displayed');
+//        (currentView === 2) && (target = $('li.exception.displayed.active'), sibling = '.exception.displayed');
+//
+//        function goToView(view) {
+//            $('#slide-out a').filter(function() {
+//                return ($(this).attr('view') === view + '-view');
+//            }).click();
+//        }
+//
+//        if (!e.ctrlKey && !e.altKey && !e.shiftKey) {
+//            (e.which === 67) && goToView('category');
+//            (e.which === 65) && goToView('author');
+//            (e.which === 68) && goToView('dashboard');
+//            (e.which === 88) && goToView('exception');
+//            (e.which === 84) && goToView('test');
+//
+//            if (target !== null) {
+//                (e.which === 40) && target.nextAll(sibling).first().click();
+//                (e.which === 38) && target.prevAll(sibling).first().click();
+//            }
+//
+//            function toggleByStatus(status) {
+//                $('#tests-toggle li').filter(function() {
+//                    return ($(this).attr('status') == status)
+//                }).click();
+//            }
+//
+//            if (currentView === 0) {
+//                (e.which === 27) && toggleByStatus('clear');
+//                (e.which === 69) && toggleByStatus('error');
+//                (e.which === 70) && toggleByStatus('fail');
+//                (e.which === 80) && toggleByStatus('pass');
+//                (e.which === 83) && toggleByStatus('skip');
+//                (e.which === 87) && toggleByStatus('warning');
+//            }
+//        }
+//    }
 });
 
 /* -- [ theme-selector ] -- */
