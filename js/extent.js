@@ -430,7 +430,7 @@ $.fn.dynamicTestSearch = function(id){
     var searchBox = $(id);
     
     searchBox.off('keyup').on('keyup', function() {
-        pattern = RegExp(searchBox.val(), 'gi');
+        pattern = RegExp(searchBox.val(), 'i');
         
         if (searchBox.val() == '') {
             target.removeClass('hide');
