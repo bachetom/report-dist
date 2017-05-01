@@ -53,23 +53,23 @@ j+="translateY("+(F[0].clientHeight-item_width)/2+"px)"),i=n[f(p)],i.style[z]=j+
  * Version: 3.0.0
  *
  * Copyright 2016 Anshoo Arora
- * Released under the BSD license 
+ * Released under the BSD license
  */
 
 $(document).ready(function() {
     $('#category-collection > .category:first-child, #exception-collection > .exception:first-child, #test-collection > .test:first-child, #author-collection > .author:first-child').click();
 
     $('#test-collection .test').dynamicTestSearch('#test-view #search-tests');
-	$('#category-collection .category').dynamicTestSearch('#category-view #search-tests');
+    $('#category-collection .category').dynamicTestSearch('#category-view #search-tests');
     $('#author-collection .author').dynamicTestSearch('#author-view #search-tests');
-	$('#exception-collection .exception').dynamicTestSearch('#exception-view #search-tests');  
+    $('#exception-collection .exception').dynamicTestSearch('#exception-view #search-tests');
 });
 
 /* -- [ sidenav - toggle views ] -- */
 $('.side-nav a').click(function() {
     $('.side-nav li').removeClass('active');
 
-    var t = $(this); 
+    var t = $(this);
     $('.view').addClass('hide');
     $('#' + t.attr('view')).removeClass('hide');
     t.closest('li').addClass('active');
@@ -77,56 +77,56 @@ $('.side-nav a').click(function() {
 
 /* -- [ allow selecting item by pressing up & down keys ] -- */
 $(window).keydown(function(e) {
-//	var target = null, sibling = null;
-//
-//    if ($('input').is(':focus') || $('.featherlight').length > 0) {
-//    } else {
-//        (currentView === 0) && (target = $('li.test.displayed.active'), sibling = '.test.displayed');
-//        (currentView === 1) && (target = $('li.category.displayed.active'), sibling = '.category.displayed');
-//        (currentView === 3) && (target = $('li.author.displayed.active'), sibling = '.author.displayed');
-//        (currentView === 2) && (target = $('li.exception.displayed.active'), sibling = '.exception.displayed');
-//
-//        function goToView(view) {
-//            $('#slide-out a').filter(function() {
-//                return ($(this).attr('view') === view + '-view');
-//            }).click();
-//        }
-//
-//        if (!e.ctrlKey && !e.altKey && !e.shiftKey) {
-//            (e.which === 67) && goToView('category');
-//            (e.which === 65) && goToView('author');
-//            (e.which === 68) && goToView('dashboard');
-//            (e.which === 88) && goToView('exception');
-//            (e.which === 84) && goToView('test');
-//
-//            if (target !== null) {
-//                (e.which === 40) && target.nextAll(sibling).first().click();
-//                (e.which === 38) && target.prevAll(sibling).first().click();
-//            }
-//
-//            function toggleByStatus(status) {
-//                $('#tests-toggle li').filter(function() {
-//                    return ($(this).attr('status') == status)
-//                }).click();
-//            }
-//
-//            if (currentView === 0) {
-//                (e.which === 27) && toggleByStatus('clear');
-//                (e.which === 69) && toggleByStatus('error');
-//                (e.which === 70) && toggleByStatus('fail');
-//                (e.which === 80) && toggleByStatus('pass');
-//                (e.which === 83) && toggleByStatus('skip');
-//                (e.which === 87) && toggleByStatus('warning');
-//            }
-//        }
-//    }
+    // var target = null, sibling = null;
+
+    //    if ($('input').is(':focus') || $('.featherlight').length > 0) {
+    //    } else {
+    //        (currentView === 0) && (target = $('li.test.displayed.active'), sibling = '.test.displayed');
+    //        (currentView === 1) && (target = $('li.category.displayed.active'), sibling = '.category.displayed');
+    //        (currentView === 3) && (target = $('li.author.displayed.active'), sibling = '.author.displayed');
+    //        (currentView === 2) && (target = $('li.exception.displayed.active'), sibling = '.exception.displayed');
+
+    //        function goToView(view) {
+    //            $('#slide-out a').filter(function() {
+    //                return ($(this).attr('view') === view + '-view');
+    //            }).click();
+    //        }
+
+    //        if (!e.ctrlKey && !e.altKey && !e.shiftKey) {
+    //            (e.which === 67) && goToView('category');
+    //            (e.which === 65) && goToView('author');
+    //            (e.which === 68) && goToView('dashboard');
+    //            (e.which === 88) && goToView('exception');
+    //            (e.which === 84) && goToView('test');
+
+    //            if (target !== null) {
+    //                (e.which === 40) && target.nextAll(sibling).first().click();
+    //                (e.which === 38) && target.prevAll(sibling).first().click();
+    //            }
+
+    //            function toggleByStatus(status) {
+    //                $('#tests-toggle li').filter(function() {
+    //                    return ($(this).attr('status') == status)
+    //                }).click();
+    //            }
+
+    //            if (currentView === 0) {
+    //                (e.which === 27) && toggleByStatus('clear');
+    //                (e.which === 69) && toggleByStatus('error');
+    //                (e.which === 70) && toggleByStatus('fail');
+    //                (e.which === 80) && toggleByStatus('pass');
+    //                (e.which === 83) && toggleByStatus('skip');
+    //                (e.which === 87) && toggleByStatus('warning');
+    //            }
+    //        }
+    //    }
 });
 
 /* -- [ theme-selector ] -- */
 $('#theme-selector').click(function() {
     var t = $(this),
-        body = $('body'); 
-    
+        body = $('body');
+
     body.toggleClass('dark');
 
     t.removeClass('white-text');
@@ -134,122 +134,134 @@ $('#theme-selector').click(function() {
 })
 
 /* -- [ fixed-containers ] -- */
-    var currentView = 0,
-        ct = null,
-        chartHeight = 0;
+var currentView = 0,
+    ct = null,
+    chartHeight = 0;
 
-    var currentBrowserIE = detectIE();
+var currentBrowserIE = detectIE();
 
-    $(function() {
-        ct = $('#test-view');
-        
-        var timer = false;
-        timer = setInterval(function() {
-            _adjustSize();
-        }, 200);
-        
-        $('.view').mousemove(function() {
-            _adjustSize();
-        });
-        
-        if(currentBrowserIE != false) {
-            $('.subview-left').resizable({
-                minWidth: 300,
-                handles: "e"
-            });
-        } else {
-            $('.subview-left').css({'resize':'horizontal'})
-        }
-        
+$(function() {
+    ct = $('#test-view');
+
+    var timer = false;
+    timer = setInterval(function() {
+        _adjustSize();
+    }, 200);
+
+    $('.view').mousemove(function() {
         _adjustSize();
     });
 
-    /* -- Check if current page is test or category --*/
-    function configureView(n) {
-        currentView = n;
-        
-        if (n === -1) {
-            $('body').removeClass('default');
-            return;
-        }
-        
-        $('body').addClass('default');
-        
-        window.scrollTo(0,0);
-        
-        chartHeight = 0;
-        
-        if (n == 0){
-            ct = $('#test-view');
-            
-            setTimeout(function() {
-                if ($('#test-view-charts').is(':visible'))
-                    chartHeight = 180;
-            }, 100);
-        }
-        else if (n == 1) ct = $('#category-view');
-        else if (n == 2) ct = $('#exception-view');
-        else if (n == 3) ct = $('#author-view');
-        else return;
-        
-        var timer = setTimeout(function() {
-            _adjustSize();
-            clearTimeout(timer);
-        }, 50);
+    if (currentBrowserIE != false) {
+        $('.subview-left').resizable({
+            minWidth: 300,
+            handles: "e"
+        });
+    } else {
+        $('.subview-left').css({
+            'resize': 'horizontal'
+        })
     }
 
-    /* -- Check if current page is test or category --*/
-    function _adjustSize() {
-        var chartHeight = 0;
-        if (currentView === 0 && $('#test-view-charts').is(':visible')) chartHeight = 180;
+    _adjustSize();
+});
 
-        ct.find('.view').css({'height':($(window).height() - 50 - chartHeight)+'px'});
-        
-        ct.find('.subview-left, .subview-right').css({'height':($(window).height() - 92 - chartHeight)+'px'});
-        ct.find('.subview-left .view-summary, .subview-right .view-summary').css({'height':($(window).height() - 110 - chartHeight)+'px'});
-        
-        if ($(window).width() < 992) {
-            ct.find('.subview-right').css({'width':Math.round($(window).width() - 115 - ct.find('.subview-left').width())+'px'});
-        }
-        else {
-            ct.find('.subview-right').css({'width':Math.round($(window).width() - 45 - 78 - ct.find('.subview-left').width())+'px'});
-        }
-        
-        _restrictSize();
+/* -- Check if current page is test or category --*/
+function configureView(n) {
+    currentView = n;
+
+    if (n === -1) {
+        $('body').removeClass('default');
+        return;
     }
 
-    function _restrictSize(){
-        if(ct.find('.subview-left').width() > Math.round($(window).width() * 0.5)){
-            ct.find('.subview-left').css({'width': Math.round($(window).width() * 0.5) +'px'});
-            _adjustSize();
-        }
+    $('body').addClass('default');
+
+    window.scrollTo(0, 0);
+
+    chartHeight = 0;
+
+    if (n == 0) {
+        ct = $('#test-view');
+
+        setTimeout(function() {
+            if ($('#test-view-charts').is(':visible'))
+                chartHeight = 180;
+        }, 100);
+    } else if (n == 1) ct = $('#category-view');
+    else if (n == 2) ct = $('#exception-view');
+    else if (n == 3) ct = $('#author-view');
+    else return;
+
+    var timer = setTimeout(function() {
+        _adjustSize();
+        clearTimeout(timer);
+    }, 50);
+}
+
+/* -- Check if current page is test or category --*/
+function _adjustSize() {
+    var chartHeight = 0;
+    if (currentView === 0 && $('#test-view-charts').is(':visible')) chartHeight = 180;
+
+    ct.find('.view').css({
+        'height': ($(window).height() - 50 - chartHeight) + 'px'
+    });
+
+    ct.find('.subview-left, .subview-right').css({
+        'height': ($(window).height() - 92 - chartHeight) + 'px'
+    });
+    ct.find('.subview-left .view-summary, .subview-right .view-summary').css({
+        'height': ($(window).height() - 110 - chartHeight) + 'px'
+    });
+
+    if ($(window).width() < 992) {
+        ct.find('.subview-right').css({
+            'width': Math.round($(window).width() - 115 - ct.find('.subview-left').width()) + 'px'
+        });
+    } else {
+        ct.find('.subview-right').css({
+            'width': Math.round($(window).width() - 45 - 78 - ct.find('.subview-left').width()) + 'px'
+        });
     }
 
-    function detectIE() {
-        var ua = window.navigator.userAgent;
+    _restrictSize();
+}
 
-        var msie = ua.indexOf('MSIE ');
-        if (msie > 0) {
-            // IE 10 or older => return version number
-            return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
-        }
-
-        var trident = ua.indexOf('Trident/');
-        if (trident > 0) {
-            // IE 11 => return version number
-            var rv = ua.indexOf('rv:');
-            return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
-        }
-
-        var edge = ua.indexOf('Edge/');
-        if (edge > 0) {
-            // Edge (IE 12+) => return version number
-            return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
-        }
-
-        // other browser
-        return false;
+function _restrictSize() {
+    if (ct.find('.subview-left').width() > Math.round($(window).width() * 0.5)) {
+        ct.find('.subview-left').css({
+            'width': Math.round($(window).width() * 0.5) + 'px'
+        });
+        _adjustSize();
     }
+}
+
+function detectIE() {
+    var ua = window.navigator.userAgent;
+
+    var msie = ua.indexOf('MSIE ');
+    if (msie > 0) {
+        // IE 10 or older => return version number
+        return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+    }
+
+    var trident = ua.indexOf('Trident/');
+    if (trident > 0) {
+        // IE 11 => return version number
+        var rv = ua.indexOf('rv:');
+        return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+    }
+
+    var edge = ua.indexOf('Edge/');
+    if (edge > 0) {
+        // Edge (IE 12+) => return version number
+        return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+    }
+
+    // other browser
+    return false;
+}
 /* -- [ fixed-containers ] -- */
 
 /* -- [ share charts between views ] -- */
@@ -275,7 +287,7 @@ $('#toggle-test-view-charts').click(function() {
 $('.test').click(function() {
     showCollectionElement('test', $(this));
     $('.subview-right img').each(function() {
-    	$(this).attr('src', $(this).attr('data-src'));
+        $(this).attr('src', $(this).attr('data-src'));
     })
 });
 
@@ -296,11 +308,11 @@ $('.exception').click(function() {
 
 function showCollectionElement(viewName, t) {
     $('.' + viewName).removeClass('active');
-    
+
     $('.view-summary > .test-name').removeClass('bdd');
 
-	var view = $('#' + viewName + '-view .subview-right .view-summary');
-    
+    var view = $('#' + viewName + '-view .subview-right .view-summary');
+
     t.toggleClass('active');
     view.children('.' + viewName + '-content').remove();
     view.append(t.children('.' + viewName + '-content').clone().removeClass('hide'));
@@ -314,7 +326,7 @@ function showCollectionElement(viewName, t) {
 /* -- [ link items to test-view ] -- */
 $('.view-summary').click(function(evt) {
     var t = $(evt.target);
-    
+
     function findTestById(id) {
         var clicked = false;
 
@@ -338,7 +350,7 @@ $('.view-summary').click(function(evt) {
         var t = find('test');
         if (t.length === 0)
             var t = find('node');
-            
+
         click(t);
     }
 
@@ -353,29 +365,53 @@ $('#tests-toggle li').click(function() {
     var t = $(this),
         status = t.attr('status'),
         clear = t.attr('clear');
-    
-    if (clear || status == 'clear') 
-        $('.test').addClass('displayed').removeClass('hide');
-    else {
-        $('.test').addClass('hide').removeClass('displayed');    
-        $('.test:has(.leaf.' + status + '), .test.' + status).removeClass('hide').addClass('displayed');
+
+    if (clear === 'true') {
+        $('.test-collection').removeClass('filtered');
+        $('.test').addClass('displayed').removeClass('hide').removeClass('search-filtered');
+    } else {
+        // Reset display/hide only if tests have NOT been filtered.
+        if (!$('.test-collection').hasClass('filtered')) {
+            $('.test-collection').addClass('filtered');
+            $('.test').removeClass('displayed').addClass('hide').filter(function() {
+                return String($(this).attr('status')) == status
+            }).addClass('displayed').removeClass('hide');
+        } else {
+            $('.test').filter(function() {
+                return String($(this).attr('status')) == status
+            }).addClass('displayed').removeClass('hide');
+        }
     }
-    
-    $('.test.displayed').first().click();
 });
 
 /* -- [ category-toggle ] -- */
-$('#category-toggle li a').click(function() { 
+$('#category-toggle li a').click(function() {
     var t = $(this),
         name = t.text(),
         clear = t.attr('clear');
 
-    if (clear === 'true') 
-        $('.test').addClass('displayed').removeClass('hide');
-    else
-        $('.test').removeClass('displayed').addClass('hide').filter(function() {
-            return String($(this).find('.category').text()).includes(name)
-        }).addClass('displayed').removeClass('hide');
+    // When the category text is retrieved it is a concatenated string
+    // of all categories, e.g. SmokeAuth. Used negative lookahead to
+    // counter this, i.e. if the category name is followed by a lowercase
+    // letter or number then it's not a match.
+    pattern = RegExp('.*' + name + '(?![a-z0-9])');
+
+    if (clear === 'true') {
+        $('.test-collection').removeClass('filtered');
+        $('.test').addClass('displayed').removeClass('hide').removeClass('search-filtered');
+    } else {
+        // Reset display/hide only if tests have NOT been filtered.
+        if (!$('.test-collection').hasClass('filtered')) {
+            $('.test-collection').addClass('filtered');
+            $('.test').removeClass('displayed').addClass('hide').filter(function() {
+                return String($(this).find('.category').text()).search(pattern) !== -1
+            }).addClass('displayed').removeClass('hide');
+        } else {
+            $('.test').filter(function() {
+                return String($(this).find('.category').text()).search(pattern) !== -1
+            }).addClass('displayed').removeClass('hide');
+        }
+    }
 
     $('.test.displayed').first().click();
 });
@@ -386,12 +422,22 @@ $('#author-toggle li a').click(function() {
         name = t.text(),
         clear = t.attr('clear');
 
-    if (clear === 'true')
-        $('.test').addClass('displayed').removeClass('hide');
-    else
-        $('.test').removeClass('displayed').addClass('hide').filter(function() {
-            return ($(this).find('.author').text() === name)
-        }).addClass('displayed').removeClass('hide');
+    if (clear === 'true') {
+        $('.test-collection').removeClass('filtered');
+        $('.test').addClass('displayed').removeClass('hide').removeClass('search-filtered');
+    } else {
+        // Reset display/hide only if tests have NOT been filtered.
+        if (!$('.test-collection').hasClass('filtered')) {
+            $('.test-collection').addClass('filtered');
+            $('.test').removeClass('displayed').addClass('hide').filter(function() {
+                return ($(this).find('.author').text() === name)
+            }).addClass('displayed').removeClass('hide');
+        } else {
+            $('.test').filter(function() {
+                return ($(this).find('.author').text() === name)
+            }).addClass('displayed').removeClass('hide');
+        }
+    }
 
     $('.test.displayed').first().click();
 });
@@ -400,7 +446,7 @@ $('#author-toggle li a').click(function() {
 $('#step-filters span').click(function() {
     var t = $(this),
         status = t.attr('status');
-    
+
     if ($('#step-filters span').hasClass('border-bottom-highlight')) {
         $('#test-view .subview-right tr.log').filter(function() {
             return ($(this).attr('status') === status);
@@ -410,7 +456,7 @@ $('#step-filters span').click(function() {
             return ($(this).attr('status') === status);
         }).removeClass('hide');
     }
-    
+
     t.addClass('border-bottom-highlight');
 
     if (status === 'clear') {
@@ -425,105 +471,199 @@ $('.search-div').click(function() {
 })
 
 /* -- [ filter tests by text in test and categories view ] -- */
-$.fn.dynamicTestSearch = function(id){ 
+$.fn.dynamicTestSearch = function(id) {
     var target = $(this);
     var searchBox = $(id);
-    
-    searchBox.off('keyup').on('keyup', function() {
-        pattern = RegExp(searchBox.val(), 'i');
-        
-        if (searchBox.val() == '') {
-            target.removeClass('hide');
-        }
-        else {
-            target.addClass('hide').each(function() {
-                var t = $(this);
-                if (pattern.test(t.html())) {
-                    t.removeClass('hide');
-                }
-            });
+
+    searchBox.off('keyup').on('keyup', function(e) {
+        // Only filter on enter.
+        if (e.keyCode == 13) {
+            pattern = RegExp(searchBox.val(), 'i');
+
+            if (searchBox.val() == '') {
+                $('.test-collection').removeClass('filtered');
+                target.each(function() {
+                    var t = $(this);
+
+                    // Only restore tests that were filtered by search.
+                    if (t.hasClass('search-filtered')) {
+                        t.removeClass('search-filtered').addClass('displayed').removeClass('hide');
+                    }
+                });
+            } else {
+                target.each(function() {
+                    var t = $(this);
+
+                    // Only search tests that are currently displayed filtered
+                    if (!t.hasClass('hide')) {
+                        if (!pattern.test(t.html())) {
+                            t.addClass('hide').addClass('search-filtered'); // Filter out anything that does not match.
+                        }
+                    }
+                });
+            }
         }
     });
-    
+
     return target;
 }
 
 /* -- [ chart options ] -- */
 var options = {
-	segmentShowStroke: false, 
-	percentageInnerCutout: 55, 
-	animationSteps: 1,
-	legendTemplate: '<ul class=\'<%=name.toLowerCase()%>-legend right\'><% for (var i=0; i<segments.length; i++) {%><li><%if(segments[i].label && segments[i].value){%><span style=\'background-color:<%=segments[i].fillColor%>\'></span><%=segments[i].label%><%}%></li><%}%></ul>'
+    segmentShowStroke: false,
+    percentageInnerCutout: 55,
+    animationSteps: 1,
+    legendTemplate: '<ul class=\'<%=name.toLowerCase()%>-legend right\'><% for (var i=0; i<segments.length; i++) {%><li><%if(segments[i].label && segments[i].value){%><span style=\'background-color:<%=segments[i].fillColor%>\'></span><%=segments[i].label%><%}%></li><%}%></ul>'
 };
 
 /* -- [ draw legend for test and step charts ] -- */
 function drawLegend(chart, id) {
-	var helpers = Chart.helpers,
-	    legendHolder = document.getElementById(id);
+    var helpers = Chart.helpers,
+        legendHolder = document.getElementById(id);
 
     legendHolder.innerHTML = chart.generateLegend();
-	
-	helpers.each(legendHolder.firstChild.childNodes, function(legendNode, index) {
-		helpers.addEvent(legendNode, 'mouseover', function() {
-			var activeSegment = chart.segments[index];
-			activeSegment.save();
-			activeSegment.fillColor = activeSegment.highlightColor;
-			chart.showTooltip([activeSegment]);
-			activeSegment.restore();
-		});
-	});
-	
-	Chart.helpers.addEvent(legendHolder.firstChild, 'mouseout', function() { chart.draw(); });
-	$('#' + id).after(legendHolder.firstChild);
+
+    helpers.each(legendHolder.firstChild.childNodes, function(legendNode, index) {
+        helpers.addEvent(legendNode, 'mouseover', function() {
+            var activeSegment = chart.segments[index];
+            activeSegment.save();
+            activeSegment.fillColor = activeSegment.highlightColor;
+            chart.showTooltip([activeSegment]);
+            activeSegment.restore();
+        });
+    });
+
+    Chart.helpers.addEvent(legendHolder.firstChild, 'mouseout', function() {
+        chart.draw();
+    });
+    $('#' + id).after(legendHolder.firstChild);
 }
 
 /* -- [ parent chart ] -- */
 function drawParentChart() {
-	var data = [
-		{ value: statusGroup.passParent, color: '#00af00', highlight: '#32bf32', label: 'Pass' },
-		{ value: statusGroup.failParent, color:'#F7464A', highlight: '#FF5A5E', label: 'Fail' },
-		{ value: statusGroup.fatalParent, color:'#8b0000', highlight: '#a23232', label: 'Fatal' },
-		{ value: statusGroup.errorParent, color:'#ff6347', highlight: '#ff826b', label: 'Error' },
-		{ value: statusGroup.warningParent, color: '#FDB45C', highlight: '#FFC870', label: 'Warning' },
-		{ value: statusGroup.skipParent, color: '#1e90ff', highlight: '#4aa6ff', label: 'Skip' }
-	];
-		
-	var ctx = $('#parent-analysis').get(0).getContext('2d');
-	testChart = new Chart(ctx).Doughnut(data, options);
-	drawLegend(testChart, 'parent-analysis');
-}; drawParentChart();
+    var data = [{
+        value: statusGroup.passParent,
+        color: '#00af00',
+        highlight: '#32bf32',
+        label: 'Pass'
+    }, {
+        value: statusGroup.failParent,
+        color: '#F7464A',
+        highlight: '#FF5A5E',
+        label: 'Fail'
+    }, {
+        value: statusGroup.fatalParent,
+        color: '#8b0000',
+        highlight: '#a23232',
+        label: 'Fatal'
+    }, {
+        value: statusGroup.errorParent,
+        color: '#ff6347',
+        highlight: '#ff826b',
+        label: 'Error'
+    }, {
+        value: statusGroup.warningParent,
+        color: '#FDB45C',
+        highlight: '#FFC870',
+        label: 'Warning'
+    }, {
+        value: statusGroup.skipParent,
+        color: '#1e90ff',
+        highlight: '#4aa6ff',
+        label: 'Skip'
+    }];
+
+    var ctx = $('#parent-analysis').get(0).getContext('2d');
+    testChart = new Chart(ctx).Doughnut(data, options);
+    drawLegend(testChart, 'parent-analysis');
+};
+drawParentChart();
 
 /* -- [ children chart ] -- */
 (function drawChildChart() {
-	var data = [
-		{ value: statusGroup.passChild, color: '#00af00', highlight: '#32bf32', label: 'Pass' },
-		{ value: statusGroup.failChild, color:'#F7464A', highlight: '#FF5A5E', label: 'Fail' },
-		{ value: statusGroup.fatalChild, color:'#8b0000', highlight: '#a23232', label: 'Fatal' },
-		{ value: statusGroup.errorChild, color:'#ff6347', highlight: '#ff826b', label: 'Error' },
-		{ value: statusGroup.warningChild, color: '#FDB45C', highlight: '#FFC870', label: 'Warning' },
-		{ value: statusGroup.skipChild, color: '#1e90ff', highlight: '#4aa6ff', label: 'Skip' },
-        { value: statusGroup.infoChild, color: '#46BFBD', highlight: '#5AD3D1', label: 'Info' }
-	];
-	
+    var data = [{
+        value: statusGroup.passChild,
+        color: '#00af00',
+        highlight: '#32bf32',
+        label: 'Pass'
+    }, {
+        value: statusGroup.failChild,
+        color: '#F7464A',
+        highlight: '#FF5A5E',
+        label: 'Fail'
+    }, {
+        value: statusGroup.fatalChild,
+        color: '#8b0000',
+        highlight: '#a23232',
+        label: 'Fatal'
+    }, {
+        value: statusGroup.errorChild,
+        color: '#ff6347',
+        highlight: '#ff826b',
+        label: 'Error'
+    }, {
+        value: statusGroup.warningChild,
+        color: '#FDB45C',
+        highlight: '#FFC870',
+        label: 'Warning'
+    }, {
+        value: statusGroup.skipChild,
+        color: '#1e90ff',
+        highlight: '#4aa6ff',
+        label: 'Skip'
+    }, {
+        value: statusGroup.infoChild,
+        color: '#46BFBD',
+        highlight: '#5AD3D1',
+        label: 'Info'
+    }];
+
     if ($('#child-analysis').length > 0) {
-	    var ctx = $('#child-analysis').get(0).getContext('2d');
-	    stepChart = new Chart(ctx).Doughnut(data, options);
-	    drawLegend(stepChart, 'child-analysis');
+        var ctx = $('#child-analysis').get(0).getContext('2d');
+        stepChart = new Chart(ctx).Doughnut(data, options);
+        drawLegend(stepChart, 'child-analysis');
     }
 })();
 
 /* -- [ grand-children chart ] -- */
 (function drawChildChart() {
-	var data = [
-		{ value: statusGroup.passGrandChild, color: '#00af00', highlight: '#32bf32', label: 'Pass' },
-		{ value: statusGroup.failGrandChild, color:'#F7464A', highlight: '#FF5A5E', label: 'Fail' },
-		{ value: statusGroup.fatalGrandChild, color:'#8b0000', highlight: '#a23232', label: 'Fatal' },
-		{ value: statusGroup.errorGrandChild, color:'#ff6347', highlight: '#ff826b', label: 'Error' },
-		{ value: statusGroup.warningGrandChild, color: '#FDB45C', highlight: '#FFC870', label: 'Warning' },
-		{ value: statusGroup.skipGrandChild, color: '#1e90ff', highlight: '#4aa6ff', label: 'Skip' },
-        { value: statusGroup.infoGrandChild, color: '#46BFBD', highlight: '#5AD3D1', label: 'Info' }
-	];
-	
+    var data = [{
+        value: statusGroup.passGrandChild,
+        color: '#00af00',
+        highlight: '#32bf32',
+        label: 'Pass'
+    }, {
+        value: statusGroup.failGrandChild,
+        color: '#F7464A',
+        highlight: '#FF5A5E',
+        label: 'Fail'
+    }, {
+        value: statusGroup.fatalGrandChild,
+        color: '#8b0000',
+        highlight: '#a23232',
+        label: 'Fatal'
+    }, {
+        value: statusGroup.errorGrandChild,
+        color: '#ff6347',
+        highlight: '#ff826b',
+        label: 'Error'
+    }, {
+        value: statusGroup.warningGrandChild,
+        color: '#FDB45C',
+        highlight: '#FFC870',
+        label: 'Warning'
+    }, {
+        value: statusGroup.skipGrandChild,
+        color: '#1e90ff',
+        highlight: '#4aa6ff',
+        label: 'Skip'
+    }, {
+        value: statusGroup.infoGrandChild,
+        color: '#46BFBD',
+        highlight: '#5AD3D1',
+        label: 'Info'
+    }];
+
     if ($('#grandchild-analysis').length > 0) {
         var ctx = $('#grandchild-analysis').get(0).getContext('2d');
         stepChart = new Chart(ctx).Doughnut(data, options);
